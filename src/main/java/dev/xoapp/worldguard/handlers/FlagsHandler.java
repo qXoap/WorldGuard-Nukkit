@@ -9,6 +9,7 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.*;
 import cn.nukkit.utils.TextFormat;
+import dev.xoapp.worldguard.factory.RegionFactory;
 import dev.xoapp.worldguard.flags.ZoneFlag;
 import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.session.*;
@@ -24,7 +25,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        Region region = session.getRegion();
+        Region region = RegionFactory.getByPosition(event.getBlock().getLocation());
         if (region == null) {
             return;
         }
@@ -34,7 +35,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant break blocks on this region"));
@@ -50,7 +51,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        Region region = session.getRegion();
+        Region region = RegionFactory.getByPosition(event.getBlock().getLocation());
         if (region == null) {
             return;
         }
@@ -60,7 +61,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant place blocks on this region"));
@@ -86,7 +87,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant consume on this region"));
@@ -112,7 +113,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant drop items on this region"));
@@ -138,7 +139,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant break blocks on this region"));
@@ -167,7 +168,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
     }
 
     @EventHandler
@@ -192,7 +193,7 @@ public class FlagsHandler implements Listener {
             return;
         }
 
-        event.setCancelled(flag.getFlagValue());
+        event.setCancelled(!flag.getFlagValue());
 
         if (!flag.getFlagValue()) {
             player.sendMessage(TextFormat.colorize("&6You cant get teleported on this region"));

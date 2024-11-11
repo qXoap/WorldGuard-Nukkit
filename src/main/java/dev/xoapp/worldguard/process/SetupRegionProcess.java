@@ -71,11 +71,23 @@ public class SetupRegionProcess {
 
         switch (compoundName) {
             case "firstPosition" -> {
+                boolean isRegionOnPosition = RegionFactory.getByPosition(block.getLocation()) != null;
+                if (isRegionOnPosition) {
+                    player.sendMessage(TextFormat.colorize("&6This position already have a region"));
+                    return;
+                }
+
                 baseRegion.setFirstPosition(block.getLocation());
                 player.sendMessage(TextFormat.colorize("&aFirst position successfully putted"));
             }
 
             case "secondPosition" -> {
+                boolean isRegionOnPosition = RegionFactory.getByPosition(block.getLocation()) != null;
+                if (isRegionOnPosition) {
+                    player.sendMessage(TextFormat.colorize("&6This position already have a region"));
+                    return;
+                }
+
                 baseRegion.setSecondPosition(block.getLocation());
                 player.sendMessage(TextFormat.colorize("&aSecond position successfully putted"));
             }
@@ -91,10 +103,10 @@ public class SetupRegionProcess {
         }
 
         session.returnInventory();
+        session.setProcess(null);
 
         Region region = RegionFactory.get(name);
         if (region == null) {
-            session.setProcess(null);
             player.sendMessage(TextFormat.colorize("&6Error while saving changes"));
             return;
         }

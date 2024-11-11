@@ -17,10 +17,12 @@ public class Region {
 
     private final String name;
 
-    @Setter @Nullable
+    @Setter
+    @Nullable
     private Position firstPosition;
 
-    @Setter @Nullable
+    @Setter
+    @Nullable
     private Position secondPosition;
 
     private final Map<String, ZoneFlag> flags = new HashMap<>();
@@ -41,14 +43,24 @@ public class Region {
         }
 
         double playerX = position.getX();
+        double playerY = position.getY();
         double playerZ = position.getZ();
 
-        double minX = Math.min(this.firstPosition.getX(), this.secondPosition.getX());
-        double maxX = Math.max(this.firstPosition.getX(), this.secondPosition.getX());
-        double minZ = Math.min(this.firstPosition.getZ(), this.secondPosition.getZ());
-        double maxZ = Math.max(this.firstPosition.getZ(), this.secondPosition.getZ());
+        double minX = Math.min(firstPosition.getX(), secondPosition.getX());
+        double maxX = Math.max(firstPosition.getX(), secondPosition.getX());
 
-        return playerX >= minX && playerX <= maxX && playerZ >= minZ && playerZ <= maxZ;
+        double minY = Math.min(firstPosition.getY(), secondPosition.getY());
+        double maxY = Math.max(firstPosition.getY(), secondPosition.getY());
+
+        double minZ = Math.min(firstPosition.getZ(), secondPosition.getZ());
+        double maxZ = Math.max(firstPosition.getZ(), secondPosition.getZ());
+
+        return playerX >= minX &&
+                playerX <= maxX &&
+                playerY >= minY &&
+                playerY <= maxY &&
+                playerZ >= minZ &&
+                playerZ <= maxZ;
     }
 
     public Map<String, Object> toMap() {

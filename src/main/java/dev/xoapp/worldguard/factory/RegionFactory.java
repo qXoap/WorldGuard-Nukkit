@@ -3,6 +3,7 @@ package dev.xoapp.worldguard.factory;
 import cn.nukkit.level.Position;
 import dev.xoapp.worldguard.data.DataCreator;
 import dev.xoapp.worldguard.region.Region;
+import dev.xoapp.worldguard.utils.WorldGuard;
 import lombok.Getter;
 
 import java.util.HashMap;
@@ -23,6 +24,10 @@ public class RegionFactory {
     }
 
     public static void create(Region region) {
+        WorldGuard.getDefaultFlags().forEach(
+                (key, flag) -> region.getFlags().put(key, flag)
+        );
+
         regions.put(region.getName(), region);
     }
 

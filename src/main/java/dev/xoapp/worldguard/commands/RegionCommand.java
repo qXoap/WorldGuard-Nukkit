@@ -21,6 +21,10 @@ public class RegionCommand extends Command {
             return false;
         }
 
+        if (!testPermission(sender)) {
+            return false;
+        }
+
         FormManager.openOptions(sender.asPlayer());
         return true;
     }

@@ -1,0 +1,9 @@
+name: WorldGuard
+main: dev.xoapp.worldguard.Loader
+api: 2.0.0
+version: 1.0.0
+author: Xoapp
+
+permissions:
+  worldguard.command:
+    default: op

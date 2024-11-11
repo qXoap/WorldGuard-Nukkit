@@ -21,6 +21,8 @@ public class Loader extends PluginBase {
 
         getServer().getCommandMap().register("region", new RegionCommand());
 
+        
+
         getServer().getPluginManager().registerEvents(new EventListener(), this);
         getServer().getPluginManager().registerEvents(new ProcessHandler(), this);
         getServer().getPluginManager().registerEvents(new FlagsHandler(), this);

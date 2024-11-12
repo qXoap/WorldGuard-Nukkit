@@ -9,7 +9,6 @@ import dev.xoapp.worldguard.handlers.ProcessHandler;
 import dev.xoapp.worldguard.session.SessionFactory;
 import lombok.Getter;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 

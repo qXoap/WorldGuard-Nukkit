@@ -82,6 +82,10 @@ public class WorldGuard {
                 }
 
                 case ',' -> {
+                    if (insideNestedMap) {
+                        continue;
+                    }
+
                     if (key != null) {
                         stack.peek().put(key, value.toString().trim());
                         key = null;
@@ -99,15 +103,5 @@ public class WorldGuard {
         }
 
         return map;
-    }
-
-    public static List<Object> stringToList(String data) {
-        data = data.substring(1, data.length() - 1);
-        if (data.isEmpty()) {
-            return null;
-        }
-
-        String[] pairs = data.split(", ");
-        return new ArrayList<>(Arrays.asList(pairs));
     }
 }

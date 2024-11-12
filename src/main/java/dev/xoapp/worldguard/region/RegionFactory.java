@@ -31,8 +31,6 @@ public class RegionFactory {
             LinkedHashMap<String, Object> data = WorldGuard.stringToMap(value.toString());
             LinkedHashMap<String, Object> flagData = (LinkedHashMap<String, Object>) data.get("flags");
 
-            List<Object> blockedPlayers = WorldGuard.stringToList(data.get("blockedPlayers").toString());
-
             Position firstPosition = Serializer.stringToPos(data.get("firstPosition").toString());
             Position secondPosition = Serializer.stringToPos(data.get("secondPosition").toString());
 
@@ -48,14 +46,6 @@ public class RegionFactory {
                     )));
 
             regions.put(region.getName(), region);
-
-            if (blockedPlayers == null) {
-                return;
-            }
-
-            for (Object blockedPlayer : blockedPlayers) {
-                region.getBlockedPlayers().add(blockedPlayer.toString());
-            }
         });
 
         Loader.getInstance().getLogger().info(TextFormat.colorize(

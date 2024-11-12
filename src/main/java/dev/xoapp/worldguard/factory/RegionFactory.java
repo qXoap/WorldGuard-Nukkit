@@ -1,12 +1,16 @@
 package dev.xoapp.worldguard.factory;
 
 import cn.nukkit.level.Position;
+import cn.nukkit.utils.TextFormat;
+import dev.xoapp.worldguard.Loader;
 import dev.xoapp.worldguard.data.DataCreator;
+import dev.xoapp.worldguard.library.serializer.Serializer;
 import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.utils.WorldGuard;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -21,6 +25,42 @@ public class RegionFactory {
         dataCreator = new DataCreator("regions.json");
 
         Map<String, Object> savedData = dataCreator.getSavedData();
+        savedData.forEach((key, value) -> {
+            Region region = new Region(key);
+
+            Map<String, Object> data = WorldGuard.stringToMap(value.toString());
+            Map<String, Object> flagData = WorldGuard.stringToMap(data.get("flags").toString());
+
+            List<Object> blockedPlayers = WorldGuard.stringToList(data.get("blockedPlayers").toString());
+
+            Position firstPosition = Serializer.stringToPos(data.get("firstPosition").toString());
+            Position secondPosition = Serializer.stringToPos(data.get("secondPosition").toString());
+
+            region.setFirstPosition(firstPosition);
+            region.setSecondPosition(secondPosition);
+
+            WorldGuard.getDefaultFlags().forEach((name, flag) -> region.getFlags().put(name, flag));
+
+            flagData.forEach((name, flagValue) -> region.getFlags()
+                    .get(name)
+                    .setFlagValue(Boolean.valueOf(
+                            flagValue.toString()
+                    )));
+
+            regions.put(region.getName(), region);
+
+            if (blockedPlayers == null) {
+                return;
+            }
+
+            for (Object blockedPlayer : blockedPlayers) {
+                region.getBlockedPlayers().add(blockedPlayer.toString());
+            }
+        });
+
+        Loader.getInstance().getLogger().info(TextFormat.colorize(
+                "&aSuccessfully loaded &e" + regions.size() + "&a Regions"
+        ));
     }
 
     public static void create(Region region) {

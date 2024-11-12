@@ -3,6 +3,8 @@ package dev.xoapp.worldguard.data;
 import cn.nukkit.utils.Config;
 import dev.xoapp.worldguard.Loader;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Map;
 
 public class DataCreator {
@@ -10,7 +12,16 @@ public class DataCreator {
     private final Config config;
 
     public DataCreator(String path) {
-        config = new Config(Loader.getInstance().getDataFolder() + path, Config.JSON);
+        File file = new File(Loader.getInstance().getDataFolder() + "/" + path);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        config = new Config(file, Config.JSON);
     }
 
     public void set(String key, Object value) {

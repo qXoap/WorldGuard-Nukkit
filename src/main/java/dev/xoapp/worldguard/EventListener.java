@@ -6,7 +6,6 @@ import cn.nukkit.event.Listener;
 import cn.nukkit.event.player.*;
 import dev.xoapp.worldguard.factory.RegionFactory;
 import dev.xoapp.worldguard.process.SetupRegionProcess;
-import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.session.Session;
 import dev.xoapp.worldguard.session.SessionFactory;
 

@@ -9,8 +9,7 @@ import dev.xoapp.worldguard.flags.player.PlayerConsumeFlag;
 import dev.xoapp.worldguard.flags.player.PlayerDropFlag;
 import dev.xoapp.worldguard.flags.player.PlayerFoodLevelChange;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class WorldGuard {
 
@@ -28,5 +27,33 @@ public class WorldGuard {
         map.put("playerFoodLevelChange", new PlayerFoodLevelChange(false));
 
         return map;
+    }
+
+    public static Map<String, Object> stringToMap(String data) {
+        Map<String, Object> map = new HashMap<>();
+
+        data = data.substring(1, data.length() - 1);
+        if (data.isEmpty()) {
+            return map;
+        }
+
+        String[] pairs = data.split(", ");
+
+        for (String pair : pairs) {
+            String[] keyValue = pair.split("=", 2);
+            map.put(keyValue[0], keyValue[1]);
+        }
+
+        return map;
+    }
+
+    public static List<Object> stringToList(String data) {
+        data = data.substring(1, data.length() - 1);
+        if (data.isEmpty()) {
+            return null;
+        }
+
+        String[] pairs = data.split(", ");
+        return new ArrayList<>(Arrays.asList(pairs));
     }
 }

@@ -16,10 +16,8 @@ import dev.xoapp.worldguard.process.SetupRegionProcess;
 import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.session.Session;
 import dev.xoapp.worldguard.session.SessionFactory;
-import org.w3c.dom.Text;
 
 import java.util.List;
-import java.util.Map;
 
 public class FormManager {
 

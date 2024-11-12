@@ -29,19 +29,73 @@ public class WorldGuard {
         return map;
     }
 
-    public static Map<String, Object> stringToMap(String data) {
-        Map<String, Object> map = new HashMap<>();
+    public static LinkedHashMap<String, Object> stringToMap(String data) {
+        LinkedHashMap<String, Object> map = new LinkedHashMap<>();
+        Stack<Map<String, Object>> stack = new Stack<>();
 
-        data = data.substring(1, data.length() - 1);
-        if (data.isEmpty()) {
-            return map;
+        stack.push(map);
+
+        int i = 1;
+
+        String key = null;
+        StringBuilder value = new StringBuilder();
+
+        boolean insideNestedMap = false;
+
+        while (i < data.length() - 1) {
+            char c = data.charAt(i);
+
+            i++;
+
+            switch (c) {
+                case '=' -> {
+                    if (key != null) {
+                        continue;
+                    }
+
+                    key = value.toString().trim();
+                    value.setLength(0);
+                }
+
+                case '{' -> {
+                    LinkedHashMap<String, Object> nestedMap = new LinkedHashMap<>();
+
+                    stack.peek().put(key, nestedMap);
+                    stack.push(nestedMap);
+
+                    key = null;
+
+                    value.setLength(0);
+                    insideNestedMap = true;
+                }
+
+                case '}' -> {
+                    if (!value.isEmpty()) {
+                        stack.peek().put(key, value.toString().trim());
+                        value.setLength(0);
+                    }
+
+                    stack.pop();
+                    insideNestedMap = !stack.isEmpty();
+
+                    key = null;
+                }
+
+                case ',' -> {
+                    if (key != null) {
+                        stack.peek().put(key, value.toString().trim());
+                        key = null;
+                    }
+
+                    value.setLength(0);
+                }
+
+                default -> value.append(c);
+            }
         }
 
-        String[] pairs = data.split(", ");
-
-        for (String pair : pairs) {
-            String[] keyValue = pair.split("=", 2);
-            map.put(keyValue[0], keyValue[1]);
+        if (key != null && !value.isEmpty()) {
+            stack.peek().put(key, value.toString().trim());
         }
 
         return map;

@@ -10,6 +10,7 @@ import dev.xoapp.worldguard.utils.WorldGuard;
 import lombok.Getter;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,8 +29,8 @@ public class RegionFactory {
         savedData.forEach((key, value) -> {
             Region region = new Region(key);
 
-            Map<String, Object> data = WorldGuard.stringToMap(value.toString());
-            Map<String, Object> flagData = WorldGuard.stringToMap(data.get("flags").toString());
+            LinkedHashMap<String, Object> data = WorldGuard.stringToMap(value.toString());
+            LinkedHashMap<String, Object> flagData = (LinkedHashMap<String, Object>) data.get("flags");
 
             List<Object> blockedPlayers = WorldGuard.stringToList(data.get("blockedPlayers").toString());
 
@@ -43,7 +44,7 @@ public class RegionFactory {
 
             flagData.forEach((name, flagValue) -> region.getFlags()
                     .get(name)
-                    .setFlagValue(Boolean.valueOf(
+                    .setFlagValue(Boolean.parseBoolean(
                             flagValue.toString()
                     )));
 
@@ -77,6 +78,7 @@ public class RegionFactory {
 
     public static void delete(String name) {
         regions.remove(name);
+        dataCreator.delete(name);
     }
 
     public static Region getByPosition(Position position) {

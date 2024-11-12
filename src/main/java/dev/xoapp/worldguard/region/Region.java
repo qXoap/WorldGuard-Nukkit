@@ -7,10 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Getter
 public class Region {
@@ -75,8 +72,8 @@ public class Region {
         return map;
     }
 
-    private Map<String, Boolean> serializeFlags() {
-        Map<String, Boolean> map = new HashMap<>();
+    private LinkedHashMap<String, Boolean> serializeFlags() {
+        LinkedHashMap<String, Boolean> map = new LinkedHashMap<>();
 
         flags.forEach((name, flag) -> map.put(name, flag.getFlagValue()));
 

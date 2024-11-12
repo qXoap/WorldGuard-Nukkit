@@ -11,6 +11,7 @@ import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class Loader extends PluginBase {
 
@@ -25,17 +26,10 @@ public class Loader extends PluginBase {
 
         getServer().getCommandMap().register("region", new RegionCommand());
 
-        for (Listener listener : getHandlers()) {
+        Collection<Listener> handlers = List.of(new EventListener(), new ProcessHandler(), new FlagsHandler());
+        for (Listener listener : handlers) {
             getServer().getPluginManager().registerEvents(listener, this);
         }
-    }
-
-    private Collection<Listener> getHandlers() {
-        return new ArrayList<>(){{
-            add(new EventListener());
-            add(new ProcessHandler());
-            add(new FlagsHandler());
-        }};
     }
 
     @Override

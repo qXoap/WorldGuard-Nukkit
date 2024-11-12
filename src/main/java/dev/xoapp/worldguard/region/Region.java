@@ -73,10 +73,8 @@ public class Region {
     }
 
     private LinkedHashMap<String, Boolean> serializeFlags() {
-        LinkedHashMap<String, Boolean> map = new LinkedHashMap<>();
-
-        flags.forEach((name, flag) -> map.put(name, flag.getFlagValue()));
-
-        return map;
+        return new LinkedHashMap<>(){{
+            flags.forEach((name, flag) -> put(name, flag.getFlagValue()));
+        }};
     }
 }

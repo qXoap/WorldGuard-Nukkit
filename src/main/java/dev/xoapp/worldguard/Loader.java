@@ -1,12 +1,16 @@
 package dev.xoapp.worldguard;
 
+import cn.nukkit.event.Listener;
 import cn.nukkit.plugin.PluginBase;
 import dev.xoapp.worldguard.commands.RegionCommand;
-import dev.xoapp.worldguard.factory.RegionFactory;
+import dev.xoapp.worldguard.region.RegionFactory;
 import dev.xoapp.worldguard.handlers.FlagsHandler;
 import dev.xoapp.worldguard.handlers.ProcessHandler;
 import dev.xoapp.worldguard.session.SessionFactory;
 import lombok.Getter;
+
+import java.util.ArrayList;
+import java.util.Collection;
 
 public class Loader extends PluginBase {
 
@@ -21,9 +25,17 @@ public class Loader extends PluginBase {
 
         getServer().getCommandMap().register("region", new RegionCommand());
 
-        getServer().getPluginManager().registerEvents(new EventListener(), this);
-        getServer().getPluginManager().registerEvents(new ProcessHandler(), this);
-        getServer().getPluginManager().registerEvents(new FlagsHandler(), this);
+        for (Listener listener : getHandlers()) {
+            getServer().getPluginManager().registerEvents(listener, this);
+        }
+    }
+
+    private Collection<Listener> getHandlers() {
+        return new ArrayList<>(){{
+            add(new EventListener());
+            add(new ProcessHandler());
+            add(new FlagsHandler());
+        }};
     }
 
     @Override

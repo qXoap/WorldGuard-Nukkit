@@ -9,7 +9,7 @@ import cn.nukkit.event.entity.EntityDamageEvent;
 import cn.nukkit.event.entity.EntityTeleportEvent;
 import cn.nukkit.event.player.*;
 import cn.nukkit.utils.TextFormat;
-import dev.xoapp.worldguard.factory.RegionFactory;
+import dev.xoapp.worldguard.region.RegionFactory;
 import dev.xoapp.worldguard.flags.ZoneFlag;
 import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.session.*;

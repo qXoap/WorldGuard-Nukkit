@@ -10,7 +10,7 @@ import com.denzelcode.form.element.Input;
 import com.denzelcode.form.element.Toggle;
 import com.denzelcode.form.window.CustomWindowForm;
 import com.denzelcode.form.window.SimpleWindowForm;
-import dev.xoapp.worldguard.factory.RegionFactory;
+import dev.xoapp.worldguard.region.RegionFactory;
 import dev.xoapp.worldguard.flags.ZoneFlag;
 import dev.xoapp.worldguard.process.SetupRegionProcess;
 import dev.xoapp.worldguard.region.Region;

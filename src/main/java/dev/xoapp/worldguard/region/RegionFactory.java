@@ -1,11 +1,10 @@
-package dev.xoapp.worldguard.factory;
+package dev.xoapp.worldguard.region;
 
 import cn.nukkit.level.Position;
 import cn.nukkit.utils.TextFormat;
 import dev.xoapp.worldguard.Loader;
 import dev.xoapp.worldguard.data.DataCreator;
 import dev.xoapp.worldguard.library.serializer.Serializer;
-import dev.xoapp.worldguard.region.Region;
 import dev.xoapp.worldguard.utils.WorldGuard;
 import lombok.Getter;
 

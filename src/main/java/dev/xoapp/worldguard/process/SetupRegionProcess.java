@@ -6,7 +6,7 @@ import cn.nukkit.event.player.PlayerInteractEvent;
 import cn.nukkit.inventory.Inventory;
 import cn.nukkit.item.Item;
 import cn.nukkit.utils.TextFormat;
-import dev.xoapp.worldguard.factory.RegionFactory;
+import dev.xoapp.worldguard.region.RegionFactory;
 import dev.xoapp.worldguard.items.region.SetFirstPosition;
 import dev.xoapp.worldguard.items.region.SetSecondPosition;
 import dev.xoapp.worldguard.items.save.SaveProcess;

@@ -6,6 +6,7 @@ import dev.xoapp.worldguard.Loader;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+import java.util.concurrent.Executors;
 
 public class DataCreator {
 
@@ -13,13 +14,16 @@ public class DataCreator {
 
     public DataCreator(String path) {
         File file = new File(Loader.getInstance().getDataFolder() + "/" + path);
-        try {
-            if (!file.exists()) {
-                file.createNewFile();
+
+        Executors.newSingleThreadExecutor().submit(() -> {
+            try {
+                if (!file.exists()) {
+                    file.createNewFile();
+                }
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        });
 
         config = new Config(file, Config.JSON);
     }
